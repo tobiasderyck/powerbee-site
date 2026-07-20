@@ -412,7 +412,10 @@ gsap.fromTo('#hiveos', { opacity: 0, x: 60 }, {
    04 — traject: pinned horizontal scroll
    ============================================================ */
 
-if (!reduced) {
+// Horizontal pinned journey on desktop; on mobile it stacks vertically
+// (pinning + sideways scroll hijacks the small screen for too long).
+const trajectMobile = window.matchMedia('(max-width: 860px)').matches;
+if (!reduced && !trajectMobile) {
   const track = document.getElementById('trajectTrack');
   const getDistance = () => track.scrollWidth - window.innerWidth + 88;
   gsap.to(track, {
@@ -429,8 +432,17 @@ if (!reduced) {
     },
   });
 } else {
-  document.getElementById('trajectTrack').style.flexWrap = 'wrap';
-  document.getElementById('trajectTrack').style.width = 'auto';
+  const track = document.getElementById('trajectTrack');
+  track.style.flexWrap = 'wrap';
+  track.style.width = 'auto';
+  if (!reduced && trajectMobile) {
+    gsap.utils.toArray('.tstep').forEach((step) => {
+      gsap.fromTo(step, { opacity: 0, y: 40 }, {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: step, start: 'top 88%' },
+      });
+    });
+  }
 }
 
 /* ============================================================

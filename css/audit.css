@@ -223,16 +223,23 @@
 /* ---------- responsive ---------- */
 
 @media (max-width: 860px) {
-  .audit-top { padding: 16px 22px; gap: 14px; }
+  .audit-top { padding: 14px 18px; gap: 10px; }
   .audit-tag { display: none; }
-  .audit { flex-direction: column; align-items: flex-start; justify-content: center; padding: 0 22px; gap: 34px; }
-  .rail { width: auto; flex-direction: row; align-items: center; gap: 18px; }
-  .rail-cells { flex-direction: row; }
+  .audit-toggle { padding: 9px 11px; }
+  .audit-back { white-space: nowrap; font-size: 9.5px; margin-left: 4px; }
+  .audit { flex-direction: column; align-items: flex-start; justify-content: center; padding: 0 22px; gap: 28px; }
+  .rail { width: auto; flex-direction: row; align-items: center; gap: 16px; }
+  .rail-cells { flex-direction: row; gap: 6px; }
+  .rail-cells svg { width: 22px; }
   .rail-cells svg:nth-child(even) { transform: none; }
   .stage { padding-left: 0; width: 100%; }
-  .audit-foot { padding: 16px 22px; }
+  .q-title { font-size: clamp(30px, 8.6vw, 44px); margin-bottom: 30px; }
+  .q-chips { gap: 10px; }
+  .chip { font-size: 14px; padding: 13px 18px; }
+  .audit-foot { padding: 16px 18px; gap: 10px; }
   .audit-hint { display: none; }
   .done-bee { width: 200px; }
+  .done-title { font-size: clamp(30px, 8vw, 46px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

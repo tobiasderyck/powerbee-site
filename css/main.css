@@ -1219,30 +1219,90 @@ html[data-theme="light"] .foot-track span { -webkit-text-stroke-color: #1015112b
 }
 
 @media (max-width: 860px) {
-  .nav { padding: 18px 22px; gap: 20px; }
-  .theme-toggle { margin-left: auto; }
+  .nav { padding: 16px 18px; gap: 12px; }
+  .nav-logo svg { height: 18px; }
+  .theme-toggle { margin-left: auto; padding: 9px 11px; }
   .theme-toggle .tt-label { display: none; }
-  .hero { padding: 110px 22px 120px; }
+  .nav-cta { white-space: nowrap; font-size: 10px; padding: 9px 12px; letter-spacing: 0.05em; gap: 7px; }
+  .hero { padding: 104px 22px 96px; }
   .hero-bee {
-    right: -30vw; top: 30%;
-    width: 130vw; opacity: 0.55;
+    right: -30vw; top: 28%;
+    width: 130vw; opacity: 0.5;
   }
   .hero-meta { display: none; }
   .lek, .hive, .eco, .cijfers { padding-left: 22px; padding-right: 22px; }
-  .comb-row { flex-direction: column; gap: 14px; }
-  .comb-row.offset { margin-top: 14px; transform: none; }
-  .cell { width: min(86vw, 400px); }
-  .traject-head { padding: 0 22px; }
-  .traject-track { padding: 0 22px; }
-  .tstep { width: 82vw; padding: 32px 28px 40px; }
-  .traject-progress { margin: 40px 22px 0; }
-  .angel { padding: 16vh 22px; }
+
+  /* tighter vertical rhythm — less empty scrolling */
+  .lek { padding-top: 14vh; padding-bottom: 14vh; }
+  .hive { padding-top: 10vh; padding-bottom: 12vh; }
+  .eco { padding-top: 9vh; padding-bottom: 11vh; }
+  .cijfers { padding-top: 11vh; padding-bottom: 11vh; }
+  .section-head { margin-bottom: 30px; }
+  .sec-lede { margin-top: 20px; font-size: 16px; }
+
+  /* 02 de hive — 2-per-row honeycomb grid instead of one tall column */
+  .comb { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; margin-top: 44px; }
+  .comb-row { display: contents; }
+  .comb-row.offset { margin: 0; transform: none; }
+  .cell { width: 100%; aspect-ratio: 1 / 0.94; }
+  .cell:hover { transform: none; z-index: auto; }
+  .cell-in { padding: 9% 11%; }
+  .cell-ico { width: 30px; height: 30px; margin-bottom: 9px; }
+  .cell h3 { font-size: 14px; margin-bottom: 6px; }
+  .cell p { font-size: 11.5px; line-height: 1.4; }
+  .cell-idx { margin-bottom: 8px; }
+
+  /* 04 het traject — stacked compact cards (pin disabled in JS on mobile) */
+  .traject-head { padding: 0 22px; margin-bottom: 28px; }
+  .traject-pin { height: auto; padding: 76px 0 30px; }
+  .traject-track { padding: 0 22px; flex-direction: column; width: auto !important; gap: 12px; transform: none !important; }
+  .tstep {
+    width: auto; min-height: 0;
+    padding: 26px 24px 26px;
+  }
+  .tstep-num { font-size: 74px; top: 4px; right: 18px; }
+  .tstep-body p { font-size: 15px; }
+  .tstep-tag { margin-top: 18px; }
+  .traject-progress { display: none; }
+
+  /* 05 de cijfers — compact */
+  .cijfers-grid { border: 0; }
+  .cijfer { padding: 30px 0; }
+  .cijfer:first-child { padding-top: 0; }
+  .cijfer-num { font-size: clamp(56px, 17vw, 88px); margin-bottom: 14px; }
+  .cijfer p { font-size: 15px; }
+
+  .angel { padding: 14vh 22px; }
   .angel-bee { right: -50vw; width: 140vw; opacity: 0.4; }
-  .voorstel { padding: 12vh 22px 12vh; }
+  .angel-copy { font-size: 17px; margin-top: 28px; }
+
+  /* 07 het voorstel — tighter blocks */
+  .voorstel { padding: 11vh 22px 11vh; }
+  .bv-grid { margin: 50px 0 70px; }
+  .blok-head { margin: 70px 0 30px; }
+  .web-deal { margin-top: 70px; }
+  .anim-note { margin-top: 70px; padding: 30px 24px; }
   .inbegrepen, .start-grid { grid-template-columns: 1fr; }
-  .anim-note { padding: 32px 26px; }
-  .foot-grid { grid-template-columns: 1fr 1fr; padding: 50px 22px; }
+  .serie-ghost { font-size: 110px; }
+
+  .foot-grid { grid-template-columns: 1fr 1fr; padding: 44px 22px; gap: 30px; }
   .foot-base { padding: 20px 22px; flex-direction: column; gap: 8px; }
+}
+
+/* phones — one more notch tighter */
+@media (max-width: 480px) {
+  .pre-corner { font-size: 8.5px; letter-spacing: 0.14em; }
+  .pre-corner.tl, .pre-corner.tr { top: 20px; }
+  .pre-corner.bl, .pre-corner.br { bottom: 20px; max-width: 42%; line-height: 1.3; }
+  .pre-corner.tl, .pre-corner.bl { left: 20px; }
+  .pre-corner.tr, .pre-corner.br { right: 20px; text-align: right; }
+  .hero-title { font-size: clamp(46px, 15vw, 60px); }
+  .lek-line { font-size: clamp(22px, 6.6vw, 30px); }
+  .lek-punch { font-size: clamp(46px, 15vw, 64px); }
+  .sec-title { font-size: clamp(32px, 10vw, 46px); }
+  .cell-ico { width: 26px; height: 26px; }
+  .cell p { font-size: 10.8px; }
+  .foot-grid { grid-template-columns: 1fr; gap: 26px; }
 }
 
 /* ---------- reduced motion ---------- */

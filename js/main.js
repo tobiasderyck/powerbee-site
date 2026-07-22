@@ -175,7 +175,7 @@ function heroIntro() {
     .fromTo('.hero-sub', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.9 }, 0.85)
     .fromTo('.hero-ctas .btn', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 }, 0.95)
     .fromTo('.hero-meta, .scroll-hint', { opacity: 0 }, { opacity: 1, duration: 1 }, 1.2);
-  if (swarm) tl.to(swarm.uniforms.uOpacity, { value: 0.7, duration: 2.4, ease: 'power2.inOut' }, 0.3);
+  if (swarm) tl.to(swarm.uniforms.uOpacity, { value: 0.5, duration: 2.4, ease: 'power2.inOut' }, 0.3);
   return tl;
 }
 
@@ -319,14 +319,15 @@ gsap.fromTo('.cell',
     onComplete: () => gsap.set('.cell', { clearProps: 'transform,opacity' }),
   });
 
+// As you leave the hero, the swarm calms right down (so text sections aren't
+// busy) and starts gliding sideways — bees "flying past" rather than clustering.
 if (swarm) {
-  const morph = { v: 0 };
-  gsap.timeline({
-    scrollTrigger: { trigger: '#hive', start: 'top 75%', end: 'bottom 15%', scrub: 0.8 },
-  })
-    .to(morph, { v: 1, duration: 0.35, ease: 'none', onUpdate: () => swarm.setMorph(morph.v) })
-    .to(morph, { v: 1, duration: 0.35, ease: 'none', onUpdate: () => swarm.setMorph(morph.v) })
-    .to(morph, { v: 0, duration: 0.3, ease: 'none', onUpdate: () => swarm.setMorph(morph.v) });
+  const sw = { op: 0.5, stream: 0.14 };
+  const apply = () => { swarm.setOpacity(sw.op); swarm.setStream(sw.stream); };
+  gsap.to(sw, {
+    op: 0.16, stream: 0.7, ease: 'none', onUpdate: apply,
+    scrollTrigger: { trigger: '.hero', start: 'bottom 92%', end: 'bottom top', scrub: 0.6 },
+  });
 }
 
 /* ============================================================

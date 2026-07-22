@@ -367,7 +367,7 @@ section { position: relative; }
 
 /* ---------- 01 het lek ---------- */
 
-.lek { padding: 26vh 44px; max-width: 1200px; margin: 0 auto; }
+.lek { padding: 16vh 44px; max-width: 1200px; margin: 0 auto; }
 .lek-copy { max-width: 1000px; }
 .lek-line {
   font-family: var(--font-display);
@@ -390,7 +390,7 @@ section { position: relative; }
 
 /* ---------- 02 de hive ---------- */
 
-.hive { padding: 16vh 44px 20vh; max-width: 1360px; margin: 0 auto; }
+.hive { padding: 12vh 44px 13vh; max-width: 1360px; margin: 0 auto; }
 .comb { margin-top: 90px; display: flex; flex-direction: column; align-items: center; }
 .comb-row { display: flex; gap: 14px; }
 .comb-row.offset { margin-top: calc(min(24vw, 320px) * -0.225); transform: translateX(calc(min(24vw, 320px) * 0.52)); }
@@ -451,7 +451,7 @@ section { position: relative; }
 
 /* ---------- 03 ecosysteem ---------- */
 
-.eco { padding: 14vh 44px 18vh; max-width: 1360px; margin: 0 auto; }
+.eco { padding: 11vh 44px 12vh; max-width: 1360px; margin: 0 auto; }
 .eco-grid {
   display: grid;
   grid-template-columns: 1.25fr 0.85fr;
@@ -591,7 +591,7 @@ section { position: relative; }
 
 /* ---------- 05 cijfers ---------- */
 
-.cijfers { padding: 18vh 44px; max-width: 1360px; margin: 0 auto; }
+.cijfers { padding: 12vh 44px 9vh; max-width: 1360px; margin: 0 auto; }
 .cijfers-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 0;
@@ -619,10 +619,10 @@ section { position: relative; }
 /* ---------- 06 de angel ---------- */
 
 .angel {
-  min-height: 100svh;
+  min-height: auto;
   display: flex; align-items: center;
   overflow: hidden;
-  padding: 16vh 44px;
+  padding: 11vh 44px 12vh;
 }
 .angel-bee {
   position: absolute;
@@ -679,7 +679,7 @@ section { position: relative; }
 
 .voorstel {
   position: relative;
-  padding: 16vh 44px 14vh;
+  padding: 9vh 44px 13vh;
   background: linear-gradient(180deg, transparent 0%, #0a0e0cd9 12%, #0a0e0cd9 88%, transparent 100%);
 }
 .voorstel-inner { max-width: 1360px; margin: 0 auto; }
@@ -798,6 +798,12 @@ section { position: relative; }
   font-size: clamp(34px, 3.2vw, 52px);
   margin: 14px 0 26px;
   font-variant-numeric: tabular-nums;
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;
+}
+.pak-price s {
+  font-family: var(--font-mono); font-weight: 400;
+  font-size: 15px; letter-spacing: 0.02em;
+  color: var(--muted); text-decoration-thickness: 1.5px;
 }
 .pak-rows { list-style: none; flex: 1; }
 .pak-rows li {
@@ -1272,16 +1278,24 @@ html[data-theme="light"] .foot-track span { -webkit-text-stroke-color: #1015112b
   .cijfer-num { font-size: clamp(56px, 17vw, 88px); margin-bottom: 14px; }
   .cijfer p { font-size: 15px; }
 
-  .angel { padding: 14vh 22px; }
-  .angel-bee { right: -50vw; width: 140vw; opacity: 0.4; }
-  .angel-copy { font-size: 17px; margin-top: 28px; }
+  /* 06 de angel — tighter, bee pushed lower so the chips stay clear */
+  .angel { padding: 9vh 22px 10vh; }
+  .angel-bee { right: -50vw; top: 74%; width: 132vw; opacity: 0.34; }
+  .angel-copy { font-size: 17px; margin-top: 24px; }
+  .angel-chips { margin-top: 28px; }
+  .angel-more { margin-top: 40px; }
 
-  /* 07 het voorstel — tighter blocks */
-  .voorstel { padding: 11vh 22px 11vh; }
-  .bv-grid { margin: 50px 0 70px; }
-  .blok-head { margin: 70px 0 30px; }
-  .web-deal { margin-top: 70px; }
-  .anim-note { margin-top: 70px; padding: 30px 24px; }
+  /* 07 het voorstel — tighter blocks + compacter pakketten */
+  .voorstel { padding: 8vh 22px 10vh; }
+  .bv-grid { margin: 44px 0 60px; }
+  .blok-head { margin: 60px 0 26px; }
+  .pak-grid { gap: 12px; }
+  .pak { padding: 26px 24px 20px; }
+  .pak-price { font-size: clamp(30px, 9vw, 42px); margin: 10px 0 16px; }
+  .pak-rows li { padding: 9px 0; font-size: 13px; }
+  .pak-rows .pak-bonus { padding-top: 12px; }
+  .web-deal { margin-top: 56px; }
+  .anim-note { margin-top: 56px; padding: 30px 24px; }
   .inbegrepen, .start-grid { grid-template-columns: 1fr; }
   .serie-ghost { font-size: 110px; }
 

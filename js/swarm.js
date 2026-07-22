@@ -1,10 +1,12 @@
 // The Swarm — GPU particle field.
-// Free-flying "bees" (chaos) that assemble into a honeycomb lattice (order)
-// as you reach De Hive, then disperse again. Mouse acts as a soft repeller.
+// Bees drift gently and, as you scroll, glide sideways across the screen
+// ("fly past") at parallax speeds. Can still assemble into a honeycomb
+// lattice (used for the audit finale). Mouse acts as a soft repeller.
 
 import * as THREE from 'three';
 
-const COUNT = 1500;
+const COUNT = 1150;
+const SPAN = 38.0; // horizontal wrap width (world units)
 
 const vert = /* glsl */ `
   attribute float aSeed;
@@ -16,6 +18,8 @@ const vert = /* glsl */ `
   uniform float uTime;
   uniform float uMorph;      // 0 = free swarm, 1 = honeycomb lattice
   uniform float uDrift;      // global scroll drift
+  uniform float uStreamPos;  // accumulated horizontal glide (fly-past)
+  uniform float uSpan;
   uniform vec3 uMouse;       // world-space pointer
   uniform float uPixelRatio;
 
@@ -32,6 +36,11 @@ const vert = /* glsl */ `
       cos(t * (0.14 + s * 0.19) + s * 31.0) * (1.1 + s * 1.8),
       sin(t * (0.16 + s * 0.15) + s * 47.0) * (1.4 + s * 1.6)
     );
+
+    // horizontal fly-past: glide sideways at a per-particle (parallax) speed,
+    // wrapping across the screen so it reads as bees passing through
+    flight.x -= uStreamPos * (0.35 + s * 0.95);
+    flight.x = mod(flight.x + uSpan * 0.5, uSpan) - uSpan * 0.5;
 
     // lattice target breathes very slightly so the hive feels alive
     vec3 hive = aTarget + vec3(
@@ -151,6 +160,8 @@ export function createSwarm(canvas) {
     uOpacity: { value: 0 },
     uPixelRatio: { value: 1 },
     uInk: { value: 0 },
+    uStreamPos: { value: 0 },
+    uSpan: { value: SPAN },
   };
 
   const mat = new THREE.ShaderMaterial({
@@ -190,10 +201,22 @@ export function createSwarm(canvas) {
 
   const clock = new THREE.Clock();
   let running = true;
+  let lastT = 0;
+  let streamPos = 0;
+  let streamSpeed = 0.35;      // world units / sec of sideways glide
+  let streamTarget = 0.35;
 
   function frame() {
     if (!running) return;
-    uniforms.uTime.value = clock.getElapsedTime();
+    const t = clock.getElapsedTime();
+    const dt = Math.min(0.05, t - lastT);
+    lastT = t;
+    uniforms.uTime.value = t;
+
+    // ease stream speed toward target, then accumulate glide
+    streamSpeed += (streamTarget - streamSpeed) * Math.min(1, dt * 2.5);
+    streamPos += streamSpeed * dt;
+    uniforms.uStreamPos.value = streamPos;
 
     raycaster.setFromCamera(pointer, camera);
     raycaster.ray.intersectPlane(raycastPlane, worldPointer);
@@ -207,7 +230,7 @@ export function createSwarm(canvas) {
   document.addEventListener('visibilitychange', () => {
     const wasRunning = running;
     running = document.visibilityState === 'visible';
-    if (running && !wasRunning) { clock.getDelta(); requestAnimationFrame(frame); }
+    if (running && !wasRunning) { lastT = clock.getElapsedTime(); requestAnimationFrame(frame); }
   });
 
   return {
@@ -215,6 +238,7 @@ export function createSwarm(canvas) {
     setMorph(v) { uniforms.uMorph.value = v; },
     setDrift(v) { uniforms.uDrift.value = v; },
     setOpacity(v) { uniforms.uOpacity.value = v; },
+    setStream(v) { streamTarget = v; },
     // ink mode: dark particles + normal blending so the swarm reads on light paper
     setInk(on) {
       uniforms.uInk.value = on ? 1 : 0;

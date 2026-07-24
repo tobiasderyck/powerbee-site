@@ -470,6 +470,58 @@ gsap.fromTo('.cijfer', { opacity: 0, y: 50 }, {
    06 — de angel: finale
    ============================================================ */
 
+/* ============================================================
+   bee-vision cinematic interlude
+   ============================================================ */
+
+(() => {
+  const section = document.getElementById('beevision');
+  if (!section) return;
+  const video = document.getElementById('bvVideo');
+
+  // headline reveal
+  const bvChars = [...section.querySelectorAll('.bv-vid-title [data-split]')].map(splitChars);
+  bvChars.forEach((chars, i) => {
+    gsap.fromTo(chars, { yPercent: 118 }, {
+      yPercent: 0, duration: 1.1, stagger: 0.03, ease: 'power4.out', delay: i * 0.12,
+      scrollTrigger: { trigger: '.bv-vid-title', start: 'top 82%' },
+    });
+  });
+  gsap.fromTo('.bv-vid-eyebrow, .bv-vid-sub', { opacity: 0, y: 26 }, {
+    opacity: 1, y: 0, duration: 1, stagger: 0.15, ease: 'power3.out',
+    scrollTrigger: { trigger: '.bv-vid-sub', start: 'top 88%' },
+  });
+
+  // slow parallax + scale so the frame feels alive as you scroll through
+  if (!reduced && video) {
+    gsap.fromTo(video, { scale: 1.18, yPercent: -6 }, {
+      scale: 1.02, yPercent: 6, ease: 'none',
+      scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
+    });
+  }
+
+  // only play while visible (perf + battery), and nudge autoplay on mobile
+  if (video) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { const p = video.play(); if (p) p.catch(() => {}); }
+        else video.pause();
+      });
+    }, { threshold: 0.15 });
+    io.observe(section);
+
+    // flickering scan coordinate for the HUD
+    const coord = document.getElementById('bvCoord');
+    if (coord && !reduced) {
+      setInterval(() => {
+        const la = (50.8 + Math.random() * 0.5).toFixed(2);
+        const lo = (3.5 + Math.random() * 0.6).toFixed(2);
+        coord.textContent = `${la}°N · ${lo}°E`;
+      }, 1400);
+    }
+  }
+})();
+
 const angelChars = [...document.querySelectorAll('.angel-title [data-split]')].map(splitChars);
 angelChars.forEach((chars, i) => {
   gsap.fromTo(chars,

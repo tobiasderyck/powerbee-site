@@ -388,6 +388,120 @@ section { position: relative; }
   color: var(--bone);
 }
 
+/* ---------- bee-vision cinematic interlude ---------- */
+
+.beevision {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  display: flex; align-items: flex-end;
+  isolation: isolate;
+}
+.bv-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  will-change: transform;
+}
+.bv-scrim {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(120% 90% at 70% 30%, transparent 30%, #050807aa 100%),
+    linear-gradient(180deg, #05080766 0%, #05080700 30%, #05080733 60%, #050807ee 100%);
+}
+
+/* viewfinder HUD */
+.bv-hud { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.bv-bracket {
+  position: absolute; width: 40px; height: 40px;
+  border: 2px solid #ffbd5bcc;
+}
+.bv-bracket.tl { top: 34px; left: 34px; border-right: 0; border-bottom: 0; }
+.bv-bracket.tr { top: 34px; right: 34px; border-left: 0; border-bottom: 0; }
+.bv-bracket.bl { bottom: 34px; left: 34px; border-right: 0; border-top: 0; }
+.bv-bracket.br { bottom: 34px; right: 34px; border-left: 0; border-top: 0; }
+.bv-scanline {
+  position: absolute; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #ffbd5bcc 20%, #ffd98f 50%, #ffbd5bcc 80%, transparent);
+  box-shadow: 0 0 22px #ffbd5b88;
+  animation: bv-scan 4.5s cubic-bezier(0.65,0,0.35,1) infinite;
+  opacity: 0.7;
+}
+@keyframes bv-scan {
+  0% { top: 12%; opacity: 0; }
+  12% { opacity: 0.8; }
+  88% { opacity: 0.8; }
+  100% { top: 88%; opacity: 0; }
+}
+.bv-reticle {
+  position: absolute; top: 50%; left: 50%;
+  width: 118px; transform: translate(-50%, -50%);
+  opacity: 0.5;
+  animation: bv-reticle-pulse 3s ease-in-out infinite;
+}
+.bv-reticle svg { width: 100%; height: auto; overflow: visible; display: block; }
+.bv-reticle polygon {
+  fill: none; stroke: #45cfff; stroke-width: 1.4;
+  stroke-dasharray: 10 8;
+  filter: drop-shadow(0 0 8px #45cfff88);
+  animation: bv-reticle-spin 22s linear infinite;
+  transform-origin: center;
+}
+@keyframes bv-reticle-pulse { 50% { opacity: 0.85; } }
+@keyframes bv-reticle-spin { to { transform: rotate(360deg); } }
+.bv-hud-tag {
+  position: absolute;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.24em; color: var(--bone);
+  text-shadow: 0 1px 8px #050807;
+}
+.bv-hud-tag.tl-tag { top: 40px; left: 86px; color: var(--honey); }
+.bv-hud-tag.tr-tag { top: 40px; right: 86px; }
+.bv-hud-tag.bl-tag { bottom: 42px; left: 86px; }
+.bv-hud-tag.br-tag { bottom: 42px; right: 86px; color: var(--plasma); }
+
+.bv-vid-inner {
+  position: relative; z-index: 2;
+  padding: 0 44px 12vh;
+  max-width: 1360px; margin: 0 auto; width: 100%;
+}
+.bv-vid-eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.3em; color: var(--muted);
+  margin-bottom: 26px;
+}
+.bv-vid-title {
+  font-family: var(--font-display); font-weight: 720;
+  font-size: clamp(40px, 7vw, 118px);
+  line-height: 0.98; letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+.bv-vid-title .ht-line { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.bv-vid-sub {
+  max-width: 480px; margin-top: 30px;
+  font-size: 18px; color: var(--bone);
+  text-shadow: 0 1px 10px #050807aa;
+}
+.bv-vid-scrollcue {
+  position: absolute; bottom: 40px; right: 44px; z-index: 2;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.3em; color: var(--muted);
+}
+
+html[data-theme="light"] .bv-scrim {
+  background:
+    radial-gradient(120% 90% at 70% 30%, transparent 34%, #1b160a55 100%),
+    linear-gradient(180deg, #1b160a44 0%, #1b160a00 34%, #1b160a55 100%);
+}
+html[data-theme="light"] .bv-vid-sub,
+html[data-theme="light"] .bv-hud-tag { color: #f2eee2; }
+html[data-theme="light"] .bv-hud-tag.tl-tag { color: var(--honey-hot); }
+html[data-theme="light"] .bv-vid-title { color: #f6f2e6; }
+html[data-theme="light"] .bv-vid-title .st-amber { color: var(--honey-hot); }
+
 /* ---------- 02 de hive ---------- */
 
 .hive { padding: 12vh 44px 13vh; max-width: 1360px; margin: 0 auto; }
@@ -1257,6 +1371,22 @@ html[data-theme="light"] .foot-track span { -webkit-text-stroke-color: #1015112b
   .cell h3 { font-size: 14px; margin-bottom: 6px; }
   .cell p { font-size: 11.5px; line-height: 1.4; }
   .cell-idx { margin-bottom: 8px; }
+
+  /* bee-vision interlude — trim HUD, tighten copy */
+  .beevision { height: 92svh; min-height: 500px; }
+  .bv-bracket { width: 26px; height: 26px; top: 22px; left: 22px; }
+  .bv-bracket.tr { right: 22px; left: auto; }
+  .bv-bracket.bl { bottom: 22px; top: auto; }
+  .bv-bracket.br { bottom: 22px; right: 22px; top: auto; left: auto; }
+  .bv-hud-tag.tl-tag { top: 26px; left: 60px; }
+  .bv-hud-tag.tr-tag { top: 26px; right: 24px; }
+  .bv-hud-tag.bl-tag { display: none; }
+  .bv-hud-tag.br-tag { bottom: 28px; right: 24px; }
+  .bv-reticle { width: 88px; }
+  .bv-vid-inner { padding: 0 22px 9vh; }
+  .bv-vid-eyebrow { margin-bottom: 18px; }
+  .bv-vid-sub { font-size: 16px; margin-top: 22px; }
+  .bv-vid-scrollcue { right: 22px; bottom: 30px; }
 
   /* 04 het traject — stacked compact cards (pin disabled in JS on mobile) */
   .traject-head { padding: 0 22px; margin-bottom: 28px; }

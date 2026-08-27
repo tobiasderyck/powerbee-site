@@ -7,8 +7,15 @@ const KEY = 'pb-theme';
 export function initTheme(onChange) {
   const root = document.documentElement;
 
+  // ?theme=light of ?theme=dark wint van de bewaarde keuze. Nodig omdat de
+  // site in een iframe getoond wordt (Pixelshift-portfolio): dat is een ander
+  // origin, dus daar valt van buitenaf geen localStorage te zetten.
   const read = () => {
-    try { return localStorage.getItem(KEY) || 'dark'; } catch { return 'dark'; }
+    try {
+      const q = new URLSearchParams(location.search).get('theme');
+      if (q === 'light' || q === 'dark') return q;
+      return localStorage.getItem(KEY) || 'light';
+    } catch { return 'light'; }
   };
   const store = (t) => { try { localStorage.setItem(KEY, t); } catch { /* private mode */ } };
 

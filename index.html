@@ -9,9 +9,9 @@
 <meta property="og:description" content="Één zwerm, één missie: jouw energiefactuur temmen. Een cinematische conceptcase door Pixelshift.">
 <meta property="og:image" content="assets/bee.png">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#050807">
+<meta name="theme-color" content="#f2ecdd">
 <link rel="icon" type="image/webp" href="assets/bee.webp">
-<script>try{document.documentElement.dataset.theme=localStorage.getItem('pb-theme')||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+<script>try{var q=new URLSearchParams(location.search).get('theme');document.documentElement.dataset.theme=(q==='light'||q==='dark')?q:(localStorage.getItem('pb-theme')||'light')}catch(e){document.documentElement.dataset.theme='light'}</script>
 <link rel="stylesheet" href="vendor/fonts/unbounded/index.css">
 <link rel="stylesheet" href="vendor/fonts/instrument-sans/index.css">
 <link rel="stylesheet" href="vendor/fonts/ibm-plex-mono/400.css">

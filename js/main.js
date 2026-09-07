@@ -467,10 +467,6 @@ gsap.fromTo('.cijfer', { opacity: 0, y: 50 }, {
 });
 
 /* ============================================================
-   06 — de angel: finale
-   ============================================================ */
-
-/* ============================================================
    bee-vision cinematic interlude
    ============================================================ */
 
@@ -522,23 +518,8 @@ gsap.fromTo('.cijfer', { opacity: 0, y: 50 }, {
   }
 })();
 
-const angelChars = [...document.querySelectorAll('.angel-title [data-split]')].map(splitChars);
-angelChars.forEach((chars, i) => {
-  gsap.fromTo(chars,
-    { yPercent: 118 },
-    {
-      yPercent: 0, duration: 1.1, stagger: 0.03, ease: 'power4.out', delay: i * 0.12,
-      scrollTrigger: { trigger: '.angel-title', start: 'top 78%' },
-    });
-});
-
-gsap.fromTo('.angel-copy, .angel-more', { opacity: 0, y: 30 }, {
-  opacity: 1, y: 0, duration: 1, stagger: 0.14, ease: 'power3.out',
-  scrollTrigger: { trigger: '.angel-copy', start: 'top 85%' },
-});
-
 /* ============================================================
-   07 — het voorstel: generic reveals
+   06 — het voorstel: generic reveals
    ============================================================ */
 
 document.querySelectorAll('[data-reveal]').forEach((el) => {
@@ -555,20 +536,6 @@ document.querySelectorAll('[data-stagger]').forEach((wrap) => {
     onComplete: () => gsap.set(wrap.children, { clearProps: 'transform,opacity' }),
   });
 });
-gsap.fromTo('.angel-chips li', { opacity: 0, y: 20, scale: 0.92 }, {
-  opacity: 1, y: 0, scale: 1, duration: 0.7, stagger: 0.08, ease: 'back.out(1.8)',
-  scrollTrigger: { trigger: '.angel-chips', start: 'top 88%' },
-});
-
-if (!reduced) {
-  gsap.fromTo('#angelBee',
-    { yPercent: -30, rotate: -16 },
-    {
-      yPercent: 10, rotate: 2, ease: 'none',
-      scrollTrigger: { trigger: '.angel', start: 'top bottom', end: 'bottom top', scrub: 0.8 },
-    });
-}
-
 /* video accordions */
 document.querySelectorAll('.vid-head').forEach((btn) => {
   btn.addEventListener('click', () => {

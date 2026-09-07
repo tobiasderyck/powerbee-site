@@ -1168,7 +1168,7 @@ html[data-theme="light"] .bv-vid-title .st-amber { color: var(--honey-hot); }
 }
 .foot-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  grid-template-columns: 1.4fr 1fr 1fr;
   gap: 40px;
   padding: 70px 44px;
   max-width: 1360px; margin: 0 auto;

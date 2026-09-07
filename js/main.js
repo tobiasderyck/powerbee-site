@@ -536,17 +536,6 @@ document.querySelectorAll('[data-stagger]').forEach((wrap) => {
     onComplete: () => gsap.set(wrap.children, { clearProps: 'transform,opacity' }),
   });
 });
-/* video accordions */
-document.querySelectorAll('.vid-head').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const vid = btn.closest('.vid');
-    const open = vid.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open);
-    // heights change → pinned/triggered positions shift
-    setTimeout(() => ScrollTrigger.refresh(), 650);
-  });
-});
-
 /* ============================================================
    housekeeping
    ============================================================ */

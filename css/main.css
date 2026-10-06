@@ -1417,7 +1417,8 @@ html[data-theme="light"] .foot-track span { -webkit-text-stroke-color: #1015112b
 
   /* 07 het voorstel — tighter blocks + compacter pakketten */
   .voorstel { padding: 8vh 22px 10vh; }
-  .bv-grid { margin: 44px 0 60px; }
+  .bv-grid { margin: 44px 0 60px; gap: 30px; }
+
   .blok-head { margin: 60px 0 26px; }
   .pak-grid { gap: 12px; }
   .pak { padding: 26px 24px 20px; }
@@ -1431,6 +1432,16 @@ html[data-theme="light"] .foot-track span { -webkit-text-stroke-color: #1015112b
 
   .foot-grid { grid-template-columns: 1fr 1fr; padding: 44px 22px; gap: 30px; }
   .foot-base { padding: 20px 22px; flex-direction: column; gap: 8px; }
+}
+
+/* telefoons — bee-vision paneel staand zodat de hele bij leesbaar in beeld komt */
+@media (max-width: 560px) {
+  .bv-scan { aspect-ratio: 4 / 5; }
+  .bv-img { object-fit: contain; padding: 46px 14px 64px; }
+  .bv-tag { top: 13px; font-size: 9px; letter-spacing: 0.16em; padding: 6px 9px; }
+  .bv-tag-l { left: 13px; }
+  .bv-tag-r { right: 13px; }
+  .bv-readout { left: 13px; right: 13px; bottom: 13px; font-size: 9.5px; letter-spacing: 0.12em; }
 }
 
 /* phones — one more notch tighter */

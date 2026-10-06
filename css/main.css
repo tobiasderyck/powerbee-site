@@ -1344,10 +1344,11 @@ html[data-theme="light"] .foot-track span { -webkit-text-stroke-color: #1015112b
   .theme-toggle { margin-left: auto; padding: 9px 11px; }
   .theme-toggle .tt-label { display: none; }
   .nav-cta { white-space: nowrap; font-size: 10px; padding: 9px 12px; letter-spacing: 0.05em; gap: 7px; }
-  .hero { padding: 104px 22px 96px; }
+  /* bij boven de titel in plaats van erachter, zodat de tekst leesbaar blijft */
+  .hero { padding: calc(84px + min(56vw, 307px)) 22px 96px; align-items: flex-start; }
   .hero-bee {
-    right: -30vw; top: 28%;
-    width: 130vw; opacity: 0.5;
+    right: auto; left: calc(50% - min(42vw, 230px)); top: 76px;
+    width: min(84vw, 460px); transform: none;
   }
   .hero-meta { display: none; }
   .lek, .hive, .eco, .cijfers { padding-left: 22px; padding-right: 22px; }

@@ -232,8 +232,11 @@ ScrollTrigger.create({
 
 /* hero parallax + exit */
 if (!reduced) {
+  // op smalle schermen staat de bij boven de titel: laat hem omhoog wegdrijven
+  // in plaats van naar beneden, anders schuift hij bij het scrollen over de tekst
+  const beeAboveTitle = window.matchMedia('(max-width: 860px)').matches;
   gsap.to('#heroBee', {
-    yPercent: 26, rotate: 6, ease: 'none',
+    yPercent: beeAboveTitle ? -30 : 26, rotate: 6, ease: 'none',
     scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 },
   });
   gsap.to('.hero-inner', {
